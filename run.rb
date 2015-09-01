@@ -2,7 +2,8 @@ require 'rubygems'
 require 'json'
 require 'csv'
 
-total_questions=3;
+puts "Enter number of questions"
+total_questions=gets.to_i;
 
 csv_text = File.read('questions.csv')
 csv_array = JSON.parse(CSV.parse(csv_text).to_json) # reading into array
