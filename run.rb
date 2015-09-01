@@ -21,14 +21,13 @@ usage_array.each do |row|
 	assigned_hours_ago= row[2].to_s.length>0 ? true : false
 	answered_hours_ago= row[3].to_s.length>0 ? true : false
 	usage_question_hash[row[1].to_s]={"assigned"=>assigned_hours_ago, "answered"=>answered_hours_ago}
-	puts usage_question_hash[row[1].to_s]["answered"].to_s
+#	puts usage_question_hash[row[1].to_s]["answered"].to_s
 end
 
 good_questions=[] # holds all questions on the output
 
 used_strands=[]
 used_standards=[]
-used_questions=[]
 
 i=0
 while i < total_questions # loop collecting questions
@@ -54,18 +53,27 @@ while i < total_questions # loop collecting questions
 	else
 		latest_usable_questions=[]
 		usable_questions.each do |row|
-#			if(){
-#				latest_usable_questions.push(row)
-#			}
+			if not usage_question_hash[row[4].to_s].nil?
+				if usage_question_hash[row[4].to_s]["assigned"]!=true and usage_question_hash[row[4].to_s]["answered"]!=true
+					latest_usable_questions.push(row)
+				end
+			else
+				latest_usable_questions.push(row)
+			end
 		end
-		to_use=usable_questions[0]
-		
-#		usage_question_hash[row[1].to_s]["answered"]
+		if latest_usable_questions.length == 0
+			latest_usable_questions=usable_questions
+		end
+		id_to_use=Random.rand(0..(latest_usable_questions.length-1))
+		to_use=latest_usable_questions[id_to_use]
 		
 		good_questions.push(to_use)
 		used_strands.push(to_use[0]) # strand id
 		used_standards.push(to_use[2]) # standard id
-		used_questions.push(to_use[4]) # question id
+		if usage_question_hash[to_use[4].to_s].nil?
+			usage_question_hash[to_use[4].to_s]={"answered"=>false}
+		end
+		usage_question_hash[to_use[4].to_s]["assigned"]=true;
 		i+=1
 	end
 end
