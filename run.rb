@@ -15,7 +15,7 @@ csv_array.each do |row|
 	end
 end
 
-used_info={} # using hashes to track numeric counters for each strand
+good_questions=[] # holds all questions on the output
 
 used_strands=[]
 used_standards=[]
@@ -29,15 +29,20 @@ while i < total_questions # loop collecting questions
 		end
 	end
 	if usable_questions.length>0 # if something was found that has not been used
+		to_use=usable_questions[0]
+		good_questions.push(to_use)
+		used_strands.push(to_use[0]) # strand id
+		used_standards.push(to_use[2]) # standard id
+		used_questions.push(to_use[4]) # question id
 		i+=1
 	else # no matches, get anything
 		used_strands=[]
 		used_standards=[]
 		used_questions=[]
 	end
-#	usable_questions.each do |row|
-#		puts row[0]
-#	end
+	usable_questions.each do |row|
+		puts row[0]
+	end
 end
 
 
