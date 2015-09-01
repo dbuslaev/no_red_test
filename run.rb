@@ -81,7 +81,7 @@ end
 
 
 good_questions.each do |row|
-	puts "Question ID: "+row[4]
+	puts "Question ID: "+row[4]+" Strand ID: "+row[0]+" Standard ID: "+row[2]
 end
 
 
