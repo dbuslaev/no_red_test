@@ -4,8 +4,15 @@ require 'csv'
 
 require_relative 'redquestion'
 
-#puts "Enter number of questions"
-total_questions = 5#gets.to_i
+while true
+  puts "Enter number of questions"
+  total_questions = Integer(gets) rescue false 
+  if total_questions and total_questions>0
+    break
+  else
+    puts "Error: please enter a number great than 0"
+  end
+end
 
 good_questions = RedQuestion.new('questions.csv', 'usage.csv').generate(total_questions)
 good_questions.each do |row|
