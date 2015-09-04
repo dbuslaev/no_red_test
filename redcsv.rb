@@ -1,4 +1,4 @@
-module Redcsv
+module RedCsv
 
   @data = {}
 
